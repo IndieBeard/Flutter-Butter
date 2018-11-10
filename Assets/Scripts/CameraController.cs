@@ -33,7 +33,11 @@ public class CameraController : MonoBehaviour {
 				lerpSmooth(player);
 		}
 		else{
-			FindPlayer();
+			if(GameManager.instance.LandedOnToast){
+				
+			} else{
+				FindPlayer();
+			}
 			//print("The camera should have moved...");
 		}
 	}
@@ -47,6 +51,7 @@ public class CameraController : MonoBehaviour {
 		//NOTE that we only want to do the x, if we did y as well, then the camera would go up and down
 	}
 
+	//Will lep smoothly to a target (the player)
 	private void lerpSmooth(Transform target){
 		float interpolation = speed * Time.deltaTime;
         Vector3 position = this.transform.position;
@@ -54,13 +59,14 @@ public class CameraController : MonoBehaviour {
         this.transform.position = position;
 	}
 
+	//Will move the camera back to the newly spawned player
 	private void lerpToNewPlayer(Transform target){
 		float interpolation = speed * Time.deltaTime;
         Vector3 position = this.transform.position;
         position.x = Mathf.Lerp(this.transform.position.x + 1f, target.transform.position.x, interpolation);
         this.transform.position = position;
 		if((target.transform.position).magnitude < 0.001f){
-			GameManager.instance.setOnSlingshot();
+			GameManager.instance.SetOnSlingshot();
 			GameManager.instance.PlayerRespawn();
 		}
 	}

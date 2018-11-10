@@ -29,6 +29,7 @@ public class ScoreTarget : MonoBehaviour {
 			score += 100;
 			scoreText.text = "Score: " + score.ToString ();
 			landed = true;
+			GameManager.instance.Success();
 		}
 	}
 }

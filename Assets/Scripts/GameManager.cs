@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	private bool playerDead = false;
 	private bool gameOver = false;
 	private bool playerReleased = false;
+	private bool landedOnToast = false;
 
 	public bool PlayerDead {
 		get {return playerDead; }
@@ -22,11 +23,20 @@ public class GameManager : MonoBehaviour {
 		get {return playerReleased; }
 	} 
 
-	public void weeee(){
+	public bool LandedOnToast {
+		get {return landedOnToast; }
+	}
+
+	public void Success(){
+		landedOnToast = true;
+		gameOver = true;
+	}
+
+	public void Weeee(){
 		playerReleased = true;
 	}
 
-	public void setOnSlingshot(){
+	public void SetOnSlingshot(){
 		playerReleased = false;
 	}
 
@@ -36,6 +46,7 @@ public class GameManager : MonoBehaviour {
 
 	public void PlayerRespawn(){
 		playerDead = false;
+		
 	}
 
 	public void OutOfLives(){

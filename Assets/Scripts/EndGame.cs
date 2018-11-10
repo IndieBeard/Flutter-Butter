@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EndGame : MonoBehaviour {
 
-	public ScoreTarget scoreTarget;
 	Animator anim;
 
 	// Use this for initialization
@@ -13,8 +12,9 @@ public class EndGame : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (scoreTarget.landed){
-			anim.SetTrigger ("success");
+		if (GameManager.instance.LandedOnToast){
+			print("Success!");
+			anim.SetTrigger ("Success");
 		}
 	}
 }

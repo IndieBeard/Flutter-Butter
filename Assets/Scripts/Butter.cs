@@ -21,6 +21,11 @@ public class Butter : MonoBehaviour
     private Vector3 startingPosition;
     private GameObject prefabToInstantiate;
 
+    [SerializeField]
+    private AudioClip woosh;
+    [SerializeField]
+    private AudioClip splat;
+
 
 
     //[SerializeField]
@@ -62,7 +67,7 @@ public class Butter : MonoBehaviour
         maxStretchSqr = maxStretch * maxStretch;
         CircleCollider2D circle = GetComponent<Collider2D>() as CircleCollider2D; //circle collider2d is our collider2d as a circle collider
         circleRadius = circle.radius + .2f;
-        GameManager.instance.setOnSlingshot();
+        GameManager.instance.SetOnSlingshot();
     }
 
     // Update is called once per frame
@@ -88,7 +93,8 @@ public class Butter : MonoBehaviour
                                               //we disable our lines so that the band isn't there anymore
                 catapultLineFront.enabled = false;
                 catapultLineBack.enabled = false;
-				GameManager.instance.weeee();
+				GameManager.instance.Weeee();
+                SoundManager.instance.PlaySingle(woosh);
             }
 
             if (!clickedOn)
@@ -166,16 +172,18 @@ public class Butter : MonoBehaviour
         //applies our calculations to the line renderer
         catapultLineFront.SetPosition(1, holdPoint); //remember we set the 1 position, because our 0 position is the catapult
         catapultLineBack.SetPosition(1, holdPoint);
-		print("line render update called.");
+		
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         anim.SetTrigger("splat");
+        SoundManager.instance.PlaySingle(splat);
+        //THIS WILL WAIT FOR 2 SECONDS
         Invoke("Splat", 2);
     }
 
-    //called when the player dies
+    //called when the player dies 2 SECONDS LATER
     void Splat()
     {
         gameObject.tag = "DeadButter";
@@ -183,6 +191,7 @@ public class Butter : MonoBehaviour
 		this.gameObject.layer = 10;
         Respawn();
         GameManager.instance.PlayerSplat();
+        
     }
 
     void Respawn()
